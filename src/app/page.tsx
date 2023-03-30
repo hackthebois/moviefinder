@@ -2,6 +2,8 @@ import SearchBar from "./SearchBar";
 import Image from "next/image";
 import RecordList from "./RecordList";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
 	searchParams: {
 		query?: string;
