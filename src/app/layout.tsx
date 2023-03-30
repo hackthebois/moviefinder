@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import Providers from "./Providers";
 
 export const metadata = {
 	title: "Movie finder",
@@ -8,10 +9,8 @@ export const metadata = {
 const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html>
-			<body>
-				<main className="m-auto h-full w-full max-w-screen-xl">
-					{children}
-				</main>
+			<body className="bg-slate-100">
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);
