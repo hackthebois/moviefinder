@@ -1,10 +1,20 @@
-import Image from "next/image";
 import SearchBar from "./SearchBar";
+import Image from "next/image";
+import RecordList from "./RecordList";
 
-const Page = () => {
+type Props = {
+	searchParams: {
+		query?: string;
+	};
+};
+
+const Page = ({ searchParams }: Props) => {
+	const query = decodeURIComponent(searchParams.query ?? "");
+
 	return (
 		<>
-			<SearchBar />
+			<SearchBar defaultQuery={query} />
+			{query !== "" && <RecordList />}
 			<div className="mt-12">
 				<div className="flex items-center">
 					<p className="mr-2 italic ">powered by</p>

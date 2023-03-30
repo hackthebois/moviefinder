@@ -14,7 +14,7 @@ const SearchBar = ({ defaultQuery = "" }: Props) => {
 	return (
 		<Form<{ query: string }>
 			onSubmit={({ query }) => {
-				router.push(`/search/${query}`);
+				router.push(`?query=${query}`);
 			}}
 		>
 			{({ submit, isDirty }) => (

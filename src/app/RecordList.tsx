@@ -1,14 +1,11 @@
+"use client";
+
 import { z } from "zod";
 import { env } from "~/env.mjs";
 import { FaChevronRight } from "react-icons/fa";
-
-export const dynamic = "force-dynamic";
-
-type Props = {
-	params: {
-		query: string;
-	};
-};
+import { useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import LoadingPage from "./loading";
 
 const SearchSchema = z
 	.object({
@@ -32,12 +29,20 @@ const search = async ({ query }: { query: string }) => {
 	return records;
 };
 
-const Page = async ({ params }: Props) => {
-	if (!params.query) {
-		return <div className="flex-1">enter a search</div>;
-	}
-	const query = decodeURIComponent(params.query);
-	const records = await search({ query });
+const RecordList = () => {
+	const params = useSearchParams();
+	const query = decodeURIComponent(params.get("query") ?? "");
+
+	const { data: records = [], isLoading } = useQuery({
+		queryFn: () => search({ query }),
+		queryKey: ["search", query],
+		refetchOnMount: false,
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: false,
+		cacheTime: 0,
+	});
+
+	if (isLoading) return <LoadingPage />;
 
 	return (
 		<div className="mt-2 w-full flex-1 sm:mt-4">
@@ -71,4 +76,4 @@ const Page = async ({ params }: Props) => {
 	);
 };
 
-export default Page;
+export default RecordList;
