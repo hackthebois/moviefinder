@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 import { z } from "zod";
+import { env } from "~/env.mjs";
 
 const configuration = new Configuration({
-	apiKey: process.env.OPENAI_KEY,
+	apiKey: env.OPENAI_KEY,
 });
 const openai = new OpenAIApi(configuration);
 const SearchSchema = z.object({ query: z.string() });
@@ -23,11 +24,13 @@ export const POST = async (request: Request) => {
 		temperature: 0.6,
 		max_tokens: 100,
 	});
-	console.log(response.data.choices[0]?.text?.split("$"));
-	return NextResponse.json(responseToObject(response.data.choices[0]?.text));
+	// console.log(response.data.choices[0]?.text?.split("$"));
+	return NextResponse.json(
+		responseToObject(response.data.choices[0]?.text as string)
+	);
 };
 
-function findMoviesPrompt(description: String) {
+function findMoviesPrompt(description: string) {
 	return `"You are a movie and tv show search engine. 
 	I will enter a prompt and you respond with 5 movies 
 	or tv shows related to the prompt. The Prompt should be 
@@ -37,16 +40,16 @@ function findMoviesPrompt(description: String) {
 	Movie1: $Bad Guy$1999$Movie about bad Guys$Good Guy$1999$Movie about Good Guys$ The prompt is ${description}."`;
 }
 
-function responseToObject(response: String) {
+function responseToObject(response: string) {
 	const lst = response.split("$");
 
-	let responseObject = [];
+	const responseObject = [];
 
 	let i = 1;
 	while (i < lst.length) {
-		let name = lst[i++];
-		let releaseYear = lst[i++];
-		let description = lst[i++];
+		const name = lst[i++];
+		const releaseYear = lst[i++];
+		const description = lst[i++];
 
 		responseObject.push({
 			name: name,

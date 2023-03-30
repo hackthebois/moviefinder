@@ -5,11 +5,18 @@ export const metadata = {
 	description: "App for finding movies/tv shows using ai",
 };
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({
+	children,
+	params,
+}: {
+	children: React.ReactNode;
+	params: { query: string };
+}) => {
+	console.log(params);
 	return (
 		<html>
-			<body>
-				<main className="m-auto h-full w-full max-w-screen-xl">
+			<body className="bg-slate-100">
+				<main className="m-auto flex h-full min-h-screen w-full max-w-screen-lg flex-col items-center justify-center p-4 md:p-8">
 					{children}
 				</main>
 			</body>
