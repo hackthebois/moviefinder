@@ -17,7 +17,7 @@ const SearchBar = ({ defaultQuery = "" }: Props) => {
 				router.push(`?query=${query}`);
 			}}
 		>
-			{({ submit, isDirty }) => (
+			{({ submit, setIsDirty, isDirty }) => (
 				<div className="flex w-full rounded-lg bg-white shadow-md">
 					<div className="flex h-14 w-14 items-center justify-center text-slate-400">
 						<FaSearch size={22} />
@@ -25,21 +25,29 @@ const SearchBar = ({ defaultQuery = "" }: Props) => {
 					<Field<string>
 						name="query"
 						initialValue={defaultQuery}
-						onSubmitValidate={z.string().min(1)}
+						onChangeValidate={z.string().min(1)}
 					>
-						{({ value, setValue, onBlur }) => (
-							<input
-								value={value}
-								onChange={(e) => setValue(e.target.value)}
-								onBlur={onBlur}
-								onKeyDown={(e) => {
-									if (e.code === "Enter" && isDirty) {
-										submit().catch((e) => console.log(e));
-									}
-								}}
-								className="flex-1 rounded-r-lg outline-none"
-								placeholder="Ask a question or search for media"
-							/>
+						{({ value, setValue, onBlur, errors }) => (
+							<>
+								<input
+									value={value}
+									onChange={(e) => setValue(e.target.value)}
+									onBlur={onBlur}
+									onKeyDown={(e) => {
+										if (e.code === "Enter" && isDirty) {
+											submit()
+												.then(() => setIsDirty(false))
+												.catch((e) => console.log(e));
+										}
+									}}
+									className="flex-1 rounded-r-lg outline-none"
+									placeholder="Ask a question or search for media"
+								/>
+								{errors &&
+									errors.map((error, index) => (
+										<p key={index}>{error}</p>
+									))}
+							</>
 						)}
 					</Field>
 					<input
