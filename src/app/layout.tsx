@@ -10,9 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html>
 			<body className="bg-slate-100">
-				<main className="m-auto flex h-full min-h-screen w-full max-w-screen-lg flex-col items-center justify-center p-4 md:p-8">
-					<Providers>{children}</Providers>
-				</main>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);
