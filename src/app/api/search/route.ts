@@ -29,7 +29,7 @@ export const POST = async (request: Request) => {
 	);
 };
 
-function findMoviesPrompt(description: String) {
+function findMoviesPrompt(description: string) {
 	return `"You are a movie and tv show search engine. 
 	I will enter a prompt and you respond with 5 movies 
 	or tv shows related to the prompt. The Prompt should be 
@@ -39,16 +39,16 @@ function findMoviesPrompt(description: String) {
 	Movie1: $Bad Guy$1999$Movie about bad Guys$Good Guy$1999$Movie about Good Guys$ Make sure the last character is not '$' The prompt is ${description}."`;
 }
 
-function responseToObject(response: String) {
+function responseToObject(response: string) {
 	const lst = response.split("$");
 
-	let responseObject = [];
+	const responseObject = [];
 
 	let i = 1;
 	while (i < lst.length) {
-		let name = lst[i++];
-		let releaseYear = lst[i++];
-		let description = lst[i++];
+		const name = lst[i++];
+		const releaseYear = lst[i++];
+		const description = lst[i++];
 
 		responseObject.push({
 			name: name,
