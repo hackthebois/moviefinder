@@ -24,7 +24,9 @@ export const POST = async (request: Request) => {
 		max_tokens: 100,
 	});
 	console.log(response.data.choices[0]?.text?.split("$"));
-	return NextResponse.json(responseToObject(response.data.choices[0]?.text));
+	return NextResponse.json(
+		responseToObject(response.data.choices[0]?.text as string)
+	);
 };
 
 function findMoviesPrompt(description: String) {
@@ -34,7 +36,7 @@ function findMoviesPrompt(description: String) {
 	a JSON list of items including each movies name the release 
 	year, and short description (10 words max,5 words min). Do not include spacing 
 	in text response. Make sure every movie reponse is enclosed by $, eg 
-	Movie1: $Bad Guy$1999$Movie about bad Guys$Good Guy$1999$Movie about Good Guys$ The prompt is ${description}."`;
+	Movie1: $Bad Guy$1999$Movie about bad Guys$Good Guy$1999$Movie about Good Guys$ Make sure the last character is not '$' The prompt is ${description}."`;
 }
 
 function responseToObject(response: String) {
