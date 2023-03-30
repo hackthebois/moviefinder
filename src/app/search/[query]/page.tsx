@@ -2,6 +2,8 @@ import { z } from "zod";
 import { env } from "~/env.mjs";
 import { FaChevronRight } from "react-icons/fa";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
 	params: {
 		query: string;
