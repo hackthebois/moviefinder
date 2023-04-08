@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const AITrademark = () => {
 	return (
-		<div className="mt-12">
+		<div className="mt-8">
 			<div className="flex items-center">
 				<p className="mr-2 italic ">powered by</p>
 				<Image

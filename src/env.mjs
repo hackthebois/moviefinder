@@ -7,6 +7,7 @@ import { z } from "zod";
 const server = z.object({
 	NODE_ENV: z.enum(["development", "test", "production"]),
 	OPENAI_KEY: z.string(),
+	OMDB_KEY: z.string(),
 });
 
 /**
@@ -27,6 +28,7 @@ const processEnv = {
 	NODE_ENV: process.env.NODE_ENV,
 	OPENAI_KEY: process.env.OPENAI_KEY,
 	NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+	OMDB_KEY: process.env.OMDB_KEY,
 };
 
 // Don't touch the part below
